@@ -51,7 +51,9 @@ Project One: Rodney Nicholas Trentan Sean
 ## User Story
 
 ```
-AS a property buyer I want to find some short term accomodation near the property I might buy so that I can stay in the community or check the weather before I make my final decison.
+AS a property buyer I want to find some short term accomodation
+near the property I might buy so that I can stay in the community
+or check the weather before I make my final decison.
 ```
 
 ## Acceptance Criteria (short term accomodation)
