@@ -19,3 +19,7 @@ h2 {
     background-color: white;
     text-indent: 10px;
 }
+
+ol {
+    font-size: larger;
+}
