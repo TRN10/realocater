@@ -1,6 +1,26 @@
 .header {
-    background-color: rgb(37, 138, 86);
+    background-color: #004d40;
     text-align: center;
     color: white;
     font-family: Museomoderno, sans-serif;
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+}
+
+h2 {
+    font-family: helvetica, sans-serif;
+    font-size: larger;
+    color: white;
+    font-kerning: none;
+}
+
+#location-name {
+    background-color: white;
+    text-indent: 10px;
+}
+
+ol {
+    font-size: larger;
+    color: grey;
 }
