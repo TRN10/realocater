@@ -18,92 +18,96 @@
 
 <body>
 
+    <div class="containerMain">
+        <div class="row header">
+            <div class="col m12">
+                <h1><i class="fa-solid fa-location-dot"></i> realocator</h1>
+            </div>
 
-    <div class="row header">
-        <div class="col m12">
-            <h1><i class="fa-solid fa-location-dot"></i> realocator</h1>
         </div>
+
+        <div class="row">
+            <div class="col m3">
+                <div class="card #00796b teal darken-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">
+
+                            <h2><i class="fa-solid fa-magnifying-glass"></i> search town/suburb</h2>
+
+                        </span>
+                        <form>
+                            <input type="text" name="location-name" id="location-name"
+                                placeholder="enter search location" />
+
+                            <a class="waves-effect waves-light btn-small">search</a>
+
+                        </form>
+
+
+
+                    </div>
+
+                </div>
+                <div class="card #009688 teal">
+                    <div class="card-content white-text">
+                        <span class="card-title">
+                            <h2><i class="fa-solid fa-heart"></i> my shortlist</h2>
+                        </span>
+
+                    </div>
+                    <hr>
+                    <div class="card-action" id="shortList">
+
+                    </div>
+                </div>
+                <div class="card #4db6ac teal lighten-2">
+                    <div class="card-content white-text">
+                        <span class="card-title">
+                            <h2><i class="fa-solid fa-circle-info"></i> weather information</h2>
+                        </span>
+                        <form>
+                            <input type="text" name="location-name" id="weather-location-name"
+                                placeholder="enter search location" />
+
+                            <a class="waves-effect waves-light btn-small">search</a>
+
+                        </form>
+                        <br>
+                        <p>rain</p>
+                        <p>current temp: 21</p>
+                        <p>feels like: 21</p>
+                        <p>wind: 11 km/h</p>
+                        <p>humidity: 100%</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="https://weather.com/" target="_blank">weather.com</a>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col m9">
+                <div class="card white darken-1">
+                    <div class="card-content black-text">
+                        <span class="card-title">easy to use</span>
+                        <ol>
+                            <li>select location</li>
+                            <li>use shortlist buttons to make a list of your favourite properties</li>
+                            <li>check the weather in your selected location</li>
+                        </ol>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">This is a link</a>
+                        <a href="#">This is a link</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
 
     </div>
 
-    <div class="row">
-        <div class="col m3">
-            <div class="card #00796b teal darken-2">
-                <div class="card-content white-text">
-                    <span class="card-title">
-
-                        <h2><i class="fa-solid fa-magnifying-glass"></i> search town/suburb</h2>
-
-                    </span>
-                    <form>
-                        <input type="text" name="location-name" id="location-name"
-                            placeholder="enter search location" />
-
-                        <a class="waves-effect waves-light btn-small">search</a>
-
-                    </form>
-
-
-
-                </div>
-
-            </div>
-            <div class="card #009688 teal">
-                <div class="card-content white-text">
-                    <span class="card-title">
-                        <h2><i class="fa-solid fa-heart"></i> my shortlist</h2>
-                    </span>
-
-                </div>
-                <hr>
-                <div class="card-action" id="shortlist">
-
-                </div>
-            </div>
-            <div class="card #4db6ac teal lighten-2">
-                <div class="card-content white-text">
-                    <span class="card-title">
-                        <h2><i class="fa-solid fa-circle-info"></i> weather information</h2>
-                    </span>
-                    <form>
-                        <input type="text" name="location-name" id="location-name"
-                            placeholder="enter search location" />
-
-                        <a class="waves-effect waves-light btn-small">search</a>
-
-                    </form>
-                    <br>
-                    <p>rain</p>
-                    <p>current temp: 21</p>
-                    <p>feels like: 21</p>
-                    <p>wind: 11 km/h</p>
-                    <p>humidity: 100%</p>
-                </div>
-                <div class="card-action">
-                    <a href="#https://weather.com/">weather.com</a>
-
-
-                </div>
-            </div>
-        </div>
-        <div class="col m9">
-            <div class="card white darken-1">
-                <div class="card-content black-text">
-                    <span class="card-title">easy to use</span>
-                    <ol>
-                        <li>select location</li>
-                        <li>use shortlist buttons to make a list of your favourite properties</li>
-                        <li>check the weather in your selected location</li>
-                    </ol>
-                </div>
-                <div class="card-action">
-                    <a href="#">This is a link</a>
-                    <a href="#">This is a link</a>
-                </div>
-            </div>
-        </div>
-
-    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/script.js"></script>
