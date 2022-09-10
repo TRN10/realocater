@@ -1,5 +1,5 @@
 // DOM
-var suburbSelected = document.getElementById("suburb");
+var suburbSelected = document.getElementById("location-name");
 var tableContainer = document.getElementById("table-container");
 var buttonFetchPropertyList = document.getElementById("button-fetch-property-list");
 
@@ -18,7 +18,7 @@ var booleanCreateButton = true;
 
 function addColumnToTableHead(tableRow, textContent) {
     tableCell = document.createElement("th");
-    tableCell.setAttribute("scope","col");
+    tableCell.setAttribute("scope", "col");
     tableCell.textContent = textContent;
     tableRow.appendChild(tableCell);
 };
@@ -26,7 +26,7 @@ function addColumnToTableHead(tableRow, textContent) {
 function addColumnToTableRow(tableRow, booleanCreateButton, textContent) {
     if (booleanCreateButton) {
         tableCell = document.createElement("td");
-        tableCell.setAttribute("scope","col");
+        tableCell.setAttribute("scope", "col");
         // tableCell.textContent = textContent;
         tableRow.appendChild(tableCell);
         tableButtonAddToShortList = document.createElement('button');
@@ -37,13 +37,13 @@ function addColumnToTableRow(tableRow, booleanCreateButton, textContent) {
     }
     else {
         tableCell = document.createElement("td");
-        tableCell.setAttribute("scope","col");
+        tableCell.setAttribute("scope", "col");
         tableCell.textContent = textContent;
-        tableRow.appendChild(tableCell);            
+        tableRow.appendChild(tableCell);
     }
 };
 
-function renderPropertyListTable () {
+function renderPropertyListTable() {
     if (booleanFirstFetch) {
         booleanFirstFetch = false;
     } else {
@@ -52,18 +52,19 @@ function renderPropertyListTable () {
 
     // append table to its container
     tablePropertyList = document.createElement("table");
-    tablePropertyList.setAttribute("id","table-property-list");
+    tablePropertyList.setAttribute("id", "table-property-list");
+    tablePropertyList.setAttribute("class", "striped");
     tableContainer.appendChild(tablePropertyList);
 
     // append head to table
     tablePropertyListHead = document.createElement("thead");
-    tablePropertyListHead.setAttribute("id","thead");
+    tablePropertyListHead.setAttribute("id", "thead");
     tablePropertyList.appendChild(tablePropertyListHead);
 
     // append row to table head
     tableRow = document.createElement("tr");
-    tableRow.setAttribute("scope","row");
-    tablePropertyListHead.appendChild(tableRow);    
+    tableRow.setAttribute("scope", "row");
+    tablePropertyListHead.appendChild(tableRow);
 
     addColumnToTableHead(tableRow, "Street Number");
     addColumnToTableHead(tableRow, "Street Name");
@@ -73,14 +74,14 @@ function renderPropertyListTable () {
 
     // append body to table
     tablePropertyListBody = document.createElement("tbody");
-    tablePropertyListBody.setAttribute("id","tbody");
+    tablePropertyListBody.setAttribute("id", "tbody");
     tablePropertyList.appendChild(tablePropertyListBody);
 };
 
 function renderPropertyListTableRow(data) {
     // append data row
     tableRow = document.createElement("tr");
-    tableRow.setAttribute("scope","row");
+    tableRow.setAttribute("scope", "row");
     tablePropertyListBody.appendChild(tableRow);
 
     addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.streetNumber);
@@ -96,33 +97,33 @@ function fetchResidentialProperties(suburbToFetch) {
 
     renderPropertyListTable();
 
-    fetch("https://api.domain.com.au/v1/listings/residential/_search?api_key=key_daead3aa93fcc658fb277dc12fbdb47e",  {
+    fetch("https://api.domain.com.au/v1/listings/residential/_search?api_key=key_daead3aa93fcc658fb277dc12fbdb47e", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            "listingType":"Sale",
+            "listingType": "Sale",
             // "propertyTypes":["House", "NewApartments"],
-            "propertyTypes":[],
-            "minBedrooms":1,
-            "minBathrooms":1,
-            "minCarspaces":0,
-            "locations":[{"state":"", "region":"", "area":"", "suburb":suburbToFetch, "postCode":"", "includeSurroundingSuburbs":false}]
+            "propertyTypes": [],
+            "minBedrooms": 1,
+            "minBathrooms": 1,
+            "minCarspaces": 0,
+            "locations": [{ "state": "", "region": "", "area": "", "suburb": suburbToFetch, "postCode": "", "includeSurroundingSuburbs": false }]
+        })
+    })
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (data) {
+            data.forEach(function (result) {
+                // console.log(result.listing);
+                renderPropertyListTableRow(result.listing);
             })
-    })
-    .then(function (response){
-    return response.json()
-    })
-    .then(function (data){
-    data.forEach(function(result) {
-        // console.log(result.listing);
-        renderPropertyListTableRow(result.listing);
-    })
-    // .catch???
-    console.log(data);
-    })
+            // .catch???
+            console.log(data);
+        })
 };
 
-buttonFetchPropertyList.addEventListener("click", function(event) {
+buttonFetchPropertyList.addEventListener("click", function (event) {
     event.preventDefault();
     event.stopPropagation();
     fetchResidentialProperties(suburbSelected.value);
