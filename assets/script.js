@@ -32,7 +32,8 @@ function addColumnToTableRow(tableRow, booleanCreateButton, textContent) {
         tableButtonAddToShortList = document.createElement('button');
         tableButtonAddToShortList.setAttribute("type", "button");
         tableButtonAddToShortList.setAttribute("title", "add-to-shortlist");
-        tableButtonAddToShortList.setAttribute("class", "Btn btn-primary far fa-save");
+        // tableButtonAddToShortList.setAttribute("class", "Btn btn-primary far fa-save");
+        tableButtonAddToShortList.setAttribute("class", "Btn btn-primary fa-solid fa-heart");
         tableCell.appendChild(tableButtonAddToShortList);
     }
     else {
@@ -66,10 +67,10 @@ function renderPropertyListTable() {
     tableRow.setAttribute("scope", "row");
     tablePropertyListHead.appendChild(tableRow);
 
-    addColumnToTableHead(tableRow, "Street Number");
-    addColumnToTableHead(tableRow, "Street Name");
+    addColumnToTableHead(tableRow, "Address");
     addColumnToTableHead(tableRow, "Property Type");
     addColumnToTableHead(tableRow, "Price Details");
+    addColumnToTableHead(tableRow, "Real Estate Agent");
     addColumnToTableHead(tableRow, "Shortlist?");
 
     // append body to table
@@ -84,10 +85,10 @@ function renderPropertyListTableRow(data) {
     tableRow.setAttribute("scope", "row");
     tablePropertyListBody.appendChild(tableRow);
 
-    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.streetNumber);
-    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.street);
+    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.displayableAddress);
     addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.propertyType);
     addColumnToTableRow(tableRow, !booleanCreateButton, data.priceDetails.displayPrice);
+    addColumnToTableRow(tableRow, !booleanCreateButton, data.advertiser.name);
     addColumnToTableRow(tableRow, booleanCreateButton, data.headline);
 
     tablePropertyListBody.append(tableRow);
