@@ -28,7 +28,7 @@
 
         <div class="row">
             <div class="col m3">
-                <div class="card #00796b teal darken-2">
+                <div class="card #00796b teal darken-2 inputButton">
                     <div class="card-content white-text">
                         <span class="card-title">
 
@@ -37,9 +37,10 @@
                         </span>
 
                         <form>
-                            <input type="text" name="location-name" id="suburb" placeholder="enter search location" />
+                            <input id="location-name" type="text" name="location-name"
+                                placeholder="enter search location" />
 
-                            <a class="waves-effect waves-light btn-small">search</a>
+                            <a id="button-fetch-property-list" class="waves-effect waves-light btn-small">search</a>
 
                         </form>
 
@@ -87,46 +88,7 @@
                 </div>
             </div>
             <div class="col m9">
-                <div class="card white darken-1">
-                    <table class="striped">
-                        <thead>
-                            <tr>
-                                <th>street number</th>
-                                <th>street name</th>
-                                <th>town/suburb</th>
-                                <th>property type</th>
-                                <th>property price</th>
-                                <th>shortlist?</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td>1351</td>
-                                <td>Snowy Mountains Highway</td>
-                                <td>Tumut</td>
-                                <td>rural</td>
-                                <td>auction</td>
-                                <td><i class="fa-solid fa-floppy-disk"></i></td>
-                            </tr>
-                            <tr>
-                                <td>10</td>
-                                <td>Quinn Street</td>
-                                <td>Tumut</td>
-                                <td>rural</td>
-                                <td>$400,000</td>
-                                <td><i class="fa-solid fa-floppy-disk"></i></td>
-                            </tr>
-                            <tr>
-                                <td>29</td>
-                                <td>Richmond Street</td>
-                                <td>Tumut</td>
-                                <td>rural</td>
-                                <td>contact agent</td>
-                                <td><i class="fa-solid fa-floppy-disk"></i></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div id="table-container" class="card white darken-1">
 
                 </div>
             </div>
