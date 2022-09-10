@@ -1,6 +1,5 @@
 // DOM
 var suburbSelected = document.getElementById("suburb");
-var stateSelected = document.getElementById("state");
 var tableContainer = document.getElementById("table-container");
 var buttonFetchPropertyList = document.getElementById("button-fetch-property-list");
 
@@ -17,14 +16,14 @@ var tableButtonAddToShortList;
 var booleanFirstFetch = true;
 var booleanCreateButton = true;
 
-function addColumnToTableHead(textContent) {
+function addColumnToTableHead(tableRow, textContent) {
     tableCell = document.createElement("th");
     tableCell.setAttribute("scope","col");
     tableCell.textContent = textContent;
     tableRow.appendChild(tableCell);
 };
 
-function addColumnToTableRow(booleanCreateButton, textContent) {
+function addColumnToTableRow(tableRow, booleanCreateButton, textContent) {
     if (booleanCreateButton) {
         tableCell = document.createElement("td");
         tableCell.setAttribute("scope","col");
@@ -48,7 +47,7 @@ function renderPropertyListTable () {
     if (booleanFirstFetch) {
         booleanFirstFetch = false;
     } else {
-        tablePropertyList.innerHTML = "";
+        tablePropertyList.remove();
     }
 
     // append table to its container
@@ -66,10 +65,11 @@ function renderPropertyListTable () {
     tableRow.setAttribute("scope","row");
     tablePropertyListHead.appendChild(tableRow);    
 
-    addColumnToTableHead("Street Number");
-    addColumnToTableHead("Street Name");
-    addColumnToTableHead("Property Type");
-    addColumnToTableHead("Shortlist?");
+    addColumnToTableHead(tableRow, "Street Number");
+    addColumnToTableHead(tableRow, "Street Name");
+    addColumnToTableHead(tableRow, "Property Type");
+    addColumnToTableHead(tableRow, "Price Details");
+    addColumnToTableHead(tableRow, "Shortlist?");
 
     // append body to table
     tablePropertyListBody = document.createElement("tbody");
@@ -83,15 +83,16 @@ function renderPropertyListTableRow(data) {
     tableRow.setAttribute("scope","row");
     tablePropertyListBody.appendChild(tableRow);
 
-    addColumnToTableRow(!booleanCreateButton, data.propertyDetails.streetNumber);
-    addColumnToTableRow(!booleanCreateButton, data.propertyDetails.street);
-    addColumnToTableRow(!booleanCreateButton, data.propertyDetails.propertyType);
-    addColumnToTableRow(booleanCreateButton, data.headline);
+    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.streetNumber);
+    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.street);
+    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.propertyType);
+    addColumnToTableRow(tableRow, !booleanCreateButton, data.priceDetails.displayPrice);
+    addColumnToTableRow(tableRow, booleanCreateButton, data.headline);
 
-    tablePropertyList.append(tableRow);
+    tablePropertyListBody.append(tableRow);
 };
 
-function fetchResidentialProperties(suburbToFetch, stateToFetch) {
+function fetchResidentialProperties(suburbToFetch) {
 
     renderPropertyListTable();
 
@@ -105,7 +106,7 @@ function fetchResidentialProperties(suburbToFetch, stateToFetch) {
             "minBedrooms":1,
             "minBathrooms":1,
             "minCarspaces":0,
-            "locations":[{"state":stateToFetch, "region":"", "area":"", "suburb":suburbToFetch, "postCode":"", "includeSurroundingSuburbs":false}]
+            "locations":[{"state":"", "region":"", "area":"", "suburb":suburbToFetch, "postCode":"", "includeSurroundingSuburbs":false}]
             })
     })
     .then(function (response){
@@ -116,6 +117,7 @@ function fetchResidentialProperties(suburbToFetch, stateToFetch) {
         // console.log(result.listing);
         renderPropertyListTableRow(result.listing);
     })
+    // .catch???
     console.log(data);
     })
 };
@@ -123,5 +125,5 @@ function fetchResidentialProperties(suburbToFetch, stateToFetch) {
 buttonFetchPropertyList.addEventListener("click", function(event) {
     event.preventDefault();
     event.stopPropagation();
-    fetchResidentialProperties(suburbSelected.value, stateSelected.value);
+    fetchResidentialProperties(suburbSelected.value);
 });
