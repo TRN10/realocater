@@ -1,5 +1,5 @@
 // DOM
-var suburbSelected = document.getElementById("location-name");
+var locationName = document.getElementById("location-name");
 var tableContainer = document.getElementById("table-container");
 var buttonFetchPropertyList = document.getElementById("button-fetch-property-list");
 
@@ -127,5 +127,17 @@ function fetchResidentialProperties(suburbToFetch) {
 buttonFetchPropertyList.addEventListener("click", function (event) {
     event.preventDefault();
     event.stopPropagation();
-    fetchResidentialProperties(suburbSelected.value);
+    fetchResidentialProperties(locationName.value);
+});
+
+// Execute a function when the user presses a key on the keyboard
+locationName.addEventListener("keypress", function (event) {
+    // If the user presses the “Enter” key on the keyboard
+    if (event.key === "Enter") {
+        console.log("Keypress")
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        buttonFetchPropertyList.click();
+    }
 });
