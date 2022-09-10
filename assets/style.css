@@ -35,13 +35,19 @@ p {
     font-weight: 400;
 }
 
-/* .col m9 {
-    overflow: scroll;
-    height: 450px;
-} */
+
 
 .footer {
     font-family: prompt;
     text-align: center;
     background-color: white;
+}
+
+/* .table-container {
+    height: 500px;
+    overflow: scroll;
+} */
+
+#table-property-list {
+    font-family: prompt, Arial, Helvetica, sans-serif;
 }
