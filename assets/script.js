@@ -44,7 +44,6 @@ function addColumnToTableRow(tableRow, booleanCreateButton, textContent) {
         tablePropertyListBodyButtonIndex++;                 // yes I know it's a global variable but this is a sprint!
         // pass unique button id to click function
         tableButtonAddToShortList.addEventListener('click', (e)=>{
-
             btnLocationClick(e, e.target.id);
         });
     }
@@ -79,18 +78,20 @@ function renderPropertyListTable() {
     tableRow.setAttribute("scope", "row");
     tablePropertyListHead.appendChild(tableRow);
 
+    addColumnToTableHead(tableRow, "Latitude");
+    addColumnToTableHead(tableRow, "Longitude");
     addColumnToTableHead(tableRow, "Address");
     addColumnToTableHead(tableRow, "Property Type");
     addColumnToTableHead(tableRow, "Price Details");
     addColumnToTableHead(tableRow, "Real Estate Agent");
     addColumnToTableHead(tableRow, "Shortlist?");
-    addColumnToTableHead(tableRow, "Latitude");
-    addColumnToTableHead(tableRow, "Longitude");
 
     // append body to table
     tablePropertyListBody = document.createElement("tbody");
     tablePropertyListBody.setAttribute("id", "tbody");
     tablePropertyList.appendChild(tablePropertyListBody);
+
+    tablePropertyListBodyButtonIndex = 0;                 // yes I know it's a global variable but this is a sprint!
 };
 
 function renderPropertyListTableRow(data) {
@@ -99,13 +100,14 @@ function renderPropertyListTableRow(data) {
     tableRow.setAttribute("scope", "row");
     tablePropertyListBody.appendChild(tableRow);
 
+    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.latitude);
+    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.longitude);
+    // addColumnToTableRow(tableRow, !booleanCreateButton, "test");
     addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.displayableAddress);
     addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.propertyType);
     addColumnToTableRow(tableRow, !booleanCreateButton, data.priceDetails.displayPrice);
     addColumnToTableRow(tableRow, !booleanCreateButton, data.advertiser.name);
     addColumnToTableRow(tableRow, booleanCreateButton, data.headline);
-    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.latitude);
-    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.longitude);
 
     tablePropertyListBody.append(tableRow);
 };
@@ -125,8 +127,8 @@ function fetchResidentialProperties(suburbToFetch) {
             "minBathrooms": 1,
             "minCarspaces": 0,
             "locations": [{ "state": "", "region": "", "area": "", "suburb": suburbToFetch, "postCode": "", "includeSurroundingSuburbs": false }]
+            })
         })
-    })
         .then(function (response) {
             return response.json()
         })
@@ -136,7 +138,10 @@ function fetchResidentialProperties(suburbToFetch) {
                 renderPropertyListTableRow(result.listing);
             })
             // .catch???
-            console.log(data);
+            // console.log(data);
+        })
+        .catch((error) => {
+            console.log(error)
         })
 };
 
@@ -168,6 +173,9 @@ locationName.addEventListener("keypress", function (event) {
             //     console.log(tableButtonAddToShortList.id);
             // });
 
+function test() {
+    console.log('nicholas test');
+}
 
 // Execute shortlist button
 // function btnLocationClick (event) {
@@ -177,7 +185,7 @@ function btnLocationClick (event, buttonId) {
     // console.log(event.id);
     console.log(buttonId);
 
-
+    test();
     // var theLatitude = buttonId.parent()
 
     // var btnClicked = $(event.target);
