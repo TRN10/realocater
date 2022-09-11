@@ -15,7 +15,7 @@ h2 {
     font-size: smaller;
     font-weight: 500;
     color: white;
-    font-kerning: none;
+    font-kerning: normal;
 }
 
 #location-name,
@@ -35,13 +35,30 @@ p {
     font-weight: 400;
 }
 
-/* .col m9 {
-    overflow: scroll;
-    height: 450px;
-} */
+
 
 .footer {
     font-family: prompt;
     text-align: center;
     background-color: white;
+}
+
+/* .table-container {
+    height: 500px;
+    overflow: scroll;
+} */
+
+#table-property-list,
+#shortlist,
+#weatherTable {
+    font-family: prompt, Arial, Helvetica, sans-serif;
+}
+
+    {
+    font-family: ;
+}
+
+#shortlist,
+#weatherTable {
+    color: white;
 }
