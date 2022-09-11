@@ -21,10 +21,19 @@ var chosenShortList = document.getElementById ("shortList");
 function test(property){
  //  var tableContent = document.getElementById('data-row' + rowNumber).textContent;
  //  var tableContent = document.getElementById('tbody');
-   localStorage.setItem('tableContent', property);
-   console.log(property);
-   
-localStorage.setItem('tableContent', JSON.stringify(property));
+ var tableContent = localStorage.getItem('tableContent');
+ if(tableContent && tableContent != null){
+    var myArr = JSON.parse(tableContent);
+    // console.log(myArr);
+    myArr.push(property);
+      localStorage.setItem('tableContent', myArr);
+      console.log(property);
+      
+    localStorage.setItem('tableContent', JSON.stringify(myArr));
+  }
+  else{
+   localStorage.setItem('tableContent', JSON.stringify([property]));
+ }
 };
 
 
@@ -33,15 +42,21 @@ localStorage.setItem('tableContent', JSON.stringify(property));
 
 function reload(){
 var tableContent = localStorage.getItem('tableContent');
-console.log(tableContent)
+console.log(tableContent);
 if ( tableContent && tableContent != null) {
 const myArr = JSON.parse(tableContent);
+myArr.forEach(element => {
+  var shortListItem;
+shortListItem = document.createElement("button");
+shortListItem.textContent = element.listing.propertyDetails.displayableAddress;
+chosenShortList.appendChild(shortListItem);
+});
 //document.getElementById('tableContent').innerHTML = tableContent;
 // console.log(myArr[0]);
-var shortListItem;
-shortListItem = document.createElement("button");
-shortListItem.textContent = myArr.listing.propertyDetails.displayableAddress;
-chosenShortList.appendChild(shortListItem);
+// var shortListItem;
+// shortListItem = document.createElement("button");
+// shortListItem.textContent = myArr.listing.propertyDetails.displayableAddress;
+// chosenShortList.appendChild(shortListItem);
 //chosenShortList.innerHTML = "<button>" + myArr[0].listing.propertyDetails.displayableAddress + "</button>";
 }
 }; 
