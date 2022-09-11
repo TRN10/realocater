@@ -184,9 +184,9 @@ locationName.addEventListener("keypress", function (event) {
             //     console.log(tableButtonAddToShortList.id);
             // });
 
-function test() {
-    console.log('nicholas test');
-}
+//function test() {
+//    console.log('nicholas test');
+//}
 
 // Execute shortlist button
 // function btnLocationClick (event) {
@@ -194,9 +194,9 @@ function btnLocationClick (event, buttonId) {
     event.preventDefault();
     event.stopPropagation();
     // console.log(event.id);
-    console.log(buttonId);
-
-    test();
+    console.log(buttonId.slice(-1));
+var rowNumber = buttonId.slice(-1);
+    test(rowNumber);
     // var theLatitude = buttonId.parent()
 
     // var btnClicked = $(event.target);
