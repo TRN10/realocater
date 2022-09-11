@@ -3,7 +3,7 @@
 var locationName = document.getElementById("location-name");
 var tableContainer = document.getElementById("table-container");
 var buttonFetchPropertyList = document.getElementById("button-fetch-property-list");
-
+var properties = [];
 // RENDERED DOM
 var tablePropertyList;
 var tablePropertyListHead;
@@ -141,13 +141,17 @@ function fetchResidentialProperties(suburbToFetch) {
             })
         })
         .then(function (response) {
+           
             return response.json()
         })
         .then(function (data) {
+         //   console.log(data);
+            properties = (data);
+            console.log(properties);
             data.forEach(function (result) {
                 // console.log(result.listing);
                 renderPropertyListTableRow(result.listing);
-            })
+            });
             // .catch???
             // console.log(data);
         })
@@ -196,7 +200,10 @@ function btnLocationClick (event, buttonId) {
     // console.log(event.id);
     console.log(buttonId.slice(-1));
 var rowNumber = buttonId.slice(-1);
-    test(rowNumber);
+
+console.log(properties[rowNumber -1])
+    test(properties[rowNumber -1]);
+    
     // var theLatitude = buttonId.parent()
 
     // var btnClicked = $(event.target);

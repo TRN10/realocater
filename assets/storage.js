@@ -6,6 +6,7 @@ var tableRow;
 var tableCell;
 var tableCellToolTip;
 var tableButtonAddToShortList;
+var chosenShortList = document.getElementById ("shortList");
 // div class= id=card-actionweatherTable
 
 
@@ -17,13 +18,22 @@ var tableButtonAddToShortList;
 
 
 // store in local storage
-function test(rowNumber){
-   var tableContent = document.getElementById('data-row' + rowNumber).textContent;
+function test(property){
+ //  var tableContent = document.getElementById('data-row' + rowNumber).textContent;
  //  var tableContent = document.getElementById('tbody');
-   localStorage.setItem('tableContent', tableContent);
-   console.log(tableContent);
-   
-localStorage.setItem('tableContent', JSON.stringify(tableContent));
+ var tableContent = localStorage.getItem('tableContent');
+ if(tableContent && tableContent != null){
+    var myArr = JSON.parse(tableContent);
+    // console.log(myArr);
+    myArr.push(property);
+      localStorage.setItem('tableContent', myArr);
+      console.log(property);
+      
+    localStorage.setItem('tableContent', JSON.stringify(myArr));
+  }
+  else{
+   localStorage.setItem('tableContent', JSON.stringify([property]));
+ }
 };
 
 
@@ -31,12 +41,34 @@ localStorage.setItem('tableContent', JSON.stringify(tableContent));
 //retrieve from local storage
 
 function reload(){
-//if (localStorage.getItem(tableContent) !== null) {
 var tableContent = localStorage.getItem('tableContent');
+console.log(tableContent);
+if ( tableContent && tableContent != null) {
 const myArr = JSON.parse(tableContent);
+myArr.forEach(element => {
+  var shortListItem;
+shortListItem = document.createElement("button");
+shortListItem.textContent = element.listing.propertyDetails.displayableAddress;
+chosenShortList.appendChild(shortListItem);
+});
 //document.getElementById('tableContent').innerHTML = tableContent;
-console.log('reload');
+// console.log(myArr[0]);
+// var shortListItem;
+// shortListItem = document.createElement("button");
+// shortListItem.textContent = myArr.listing.propertyDetails.displayableAddress;
+// chosenShortList.appendChild(shortListItem);
+//chosenShortList.innerHTML = "<button>" + myArr[0].listing.propertyDetails.displayableAddress + "</button>";
+}
 }; 
+
+window.addEventListener('load', reload);
+
+
+
+
+
+
+
 
 //reload()
 // function test (propertyLatitude, propertyLongitude, propertyAddress, propertyType, propertyPrice, propertyRealEstateAgent) {
