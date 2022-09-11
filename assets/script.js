@@ -9,6 +9,7 @@ var tablePropertyList;
 var tablePropertyListHead;
 var tablePropertyListBody;
 var tableRow;
+var tableDataRowIndex = 0;
 var tableCell;
 var tableCellToolTip;
 var tableButtonAddToShortList;
@@ -17,23 +18,29 @@ var tablePropertyListBodyButtonIndex = 0;
 // CONDITIONALS
 var booleanFirstFetch = true;
 var booleanCreateButton = true;
+var booleanVisible = true;
 
-function addColumnToTableHead(tableRow, textContent, booleanInvisible) {
+function addColumnToTableHead(tableRow, booleanVisible, textContent) {
     tableCell = document.createElement("th");
     tableCell.setAttribute("scope", "col");
-    // if (booleanInvisible) {
-
-    // }
+    if  (!booleanVisible) {
+        tableCell.setAttribute("class", "hide");        // materializecss.com
+    }
     tableCell.textContent = textContent;
     tableRow.appendChild(tableCell);
 };
 
-function addColumnToTableRow(tableRow, booleanCreateButton, textContent) {
+function addColumnToTableRow(tableRow, booleanVisible, booleanCreateButton, textContent) {
+    if  (!booleanVisible && booleanCreateButton) {
+        console.log("You are creating an invisible button! This seems inappropriate.")
+    };
+    tableCell = document.createElement("td");
+    tableCell.setAttribute("scope", "col");
+    if  (!booleanVisible) {
+        tableCell.setAttribute("class", "hide");        // materializecss.com
+    };
     if (booleanCreateButton) {
-        tableCell = document.createElement("td");
-        tableCell.setAttribute("scope", "col");
         // tableCell.textContent = textContent;
-        tableRow.appendChild(tableCell);
         tableButtonAddToShortList = document.createElement('button');
         tableButtonAddToShortList.setAttribute("type", "button");
         tableButtonAddToShortList.setAttribute("title", textContent);       // review attribute name "title" later; this is a sprint!
@@ -43,18 +50,17 @@ function addColumnToTableRow(tableRow, booleanCreateButton, textContent) {
         tableCell.appendChild(tableButtonAddToShortList);
         tablePropertyListBodyButtonIndex++;                 // yes I know it's a global variable but this is a sprint!
         // pass unique button id to click function
-        tableButtonAddToShortList.addEventListener('click', (e)=>{
+        tableButtonAddToShortList.addEventListener("click", (e)=>{
             btnLocationClick(e, e.target.id);
         });
     }
     else {
-        tableCell = document.createElement("td");
-        tableCell.setAttribute("scope", "col");
         tableCell.textContent = textContent;
-        tableRow.appendChild(tableCell);
-    }
+    };
+    tableRow.appendChild(tableCell);
 };
 
+// create the table, add thead, add empty tbody
 function renderPropertyListTable() {
     if (booleanFirstFetch) {
         booleanFirstFetch = false;
@@ -78,38 +84,43 @@ function renderPropertyListTable() {
     tableRow.setAttribute("scope", "row");
     tablePropertyListHead.appendChild(tableRow);
 
-    addColumnToTableHead(tableRow, "Latitude");
-    addColumnToTableHead(tableRow, "Longitude");
-    addColumnToTableHead(tableRow, "Address");
-    addColumnToTableHead(tableRow, "Property Type");
-    addColumnToTableHead(tableRow, "Price Details");
-    addColumnToTableHead(tableRow, "Real Estate Agent");
-    addColumnToTableHead(tableRow, "Shortlist?");
+    addColumnToTableHead(tableRow, !booleanVisible, "Latitude");
+    addColumnToTableHead(tableRow, !booleanVisible, "Longitude");
+    addColumnToTableHead(tableRow,  booleanVisible, "Address");
+    addColumnToTableHead(tableRow,  booleanVisible, "Property Type");
+    addColumnToTableHead(tableRow,  booleanVisible, "Price Details");
+    addColumnToTableHead(tableRow,  booleanVisible, "Real Estate Agent");
+    addColumnToTableHead(tableRow,  booleanVisible, "Shortlist?");
 
     // append body to table
     tablePropertyListBody = document.createElement("tbody");
     tablePropertyListBody.setAttribute("id", "tbody");
     tablePropertyList.appendChild(tablePropertyListBody);
 
+    // at the start of building the table make sure the index pointers are flushed
+    tableDataRowIndex = 0;
     tablePropertyListBodyButtonIndex = 0;                 // yes I know it's a global variable but this is a sprint!
 };
 
+// add data rows to created table
 function renderPropertyListTableRow(data) {
     // append data row
     tableRow = document.createElement("tr");
     tableRow.setAttribute("scope", "row");
+    tableRow.setAttribute("id", "data-row" + tableDataRowIndex);
     tablePropertyListBody.appendChild(tableRow);
 
-    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.latitude);
-    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.longitude);
-    // addColumnToTableRow(tableRow, !booleanCreateButton, "test");
-    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.displayableAddress);
-    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.propertyType);
-    addColumnToTableRow(tableRow, !booleanCreateButton, data.priceDetails.displayPrice);
-    addColumnToTableRow(tableRow, !booleanCreateButton, data.advertiser.name);
-    addColumnToTableRow(tableRow, booleanCreateButton, data.headline);
+    addColumnToTableRow(tableRow, !booleanVisible, !booleanCreateButton, data.propertyDetails.latitude);
+    addColumnToTableRow(tableRow, !booleanVisible, !booleanCreateButton, data.propertyDetails.longitude);
+    // addColumnToTableRow(tableRow,  booleanVisible, !booleanCreateButton, "test");
+    addColumnToTableRow(tableRow,  booleanVisible, !booleanCreateButton, data.propertyDetails.displayableAddress);
+    addColumnToTableRow(tableRow,  booleanVisible, !booleanCreateButton, data.propertyDetails.propertyType);
+    addColumnToTableRow(tableRow,  booleanVisible, !booleanCreateButton, data.priceDetails.displayPrice);
+    addColumnToTableRow(tableRow,  booleanVisible, !booleanCreateButton, data.advertiser.name);
+    addColumnToTableRow(tableRow,  booleanVisible, booleanCreateButton, data.headline);
 
     tablePropertyListBody.append(tableRow);
+    tableDataRowIndex++;
 };
 
 function fetchResidentialProperties(suburbToFetch) {
