@@ -61,6 +61,6 @@ function getCityCurrentWeatherApi(weatherLocation, weatherLocationState) {
         event.preventDefault();
         event.stopPropagation();
     
-        getCityCurrentWeatherApi(weatherLocation, 'NSW');
+//SDW getCityCurrentWeatherApi(weatherLocation, 'NSW');
         // fetchResidentialProperties(locationName.value);
     });

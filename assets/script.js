@@ -1,3 +1,4 @@
+// Sean Wallace September 2022
 // DOM
 var locationName = document.getElementById("location-name");
 var tableContainer = document.getElementById("table-container");
@@ -11,14 +12,18 @@ var tableRow;
 var tableCell;
 var tableCellToolTip;
 var tableButtonAddToShortList;
+var tablePropertyListBodyButtonIndex = 0;
 
 // CONDITIONALS
 var booleanFirstFetch = true;
 var booleanCreateButton = true;
 
-function addColumnToTableHead(tableRow, textContent) {
+function addColumnToTableHead(tableRow, textContent, booleanInvisible) {
     tableCell = document.createElement("th");
     tableCell.setAttribute("scope", "col");
+    // if (booleanInvisible) {
+
+    // }
     tableCell.textContent = textContent;
     tableRow.appendChild(tableCell);
 };
@@ -31,10 +36,17 @@ function addColumnToTableRow(tableRow, booleanCreateButton, textContent) {
         tableRow.appendChild(tableCell);
         tableButtonAddToShortList = document.createElement('button');
         tableButtonAddToShortList.setAttribute("type", "button");
-        tableButtonAddToShortList.setAttribute("title", "add-to-shortlist");
+        tableButtonAddToShortList.setAttribute("title", textContent);       // review attribute name "title" later; this is a sprint!
         // tableButtonAddToShortList.setAttribute("class", "Btn btn-primary far fa-save");
-        tableButtonAddToShortList.setAttribute("class", "Btn btn-primary fa-solid fa-heart");
+        tableButtonAddToShortList.setAttribute("class", "Btn btn-location fa-solid fa-heart");
+        tableButtonAddToShortList.setAttribute("id", "btn-location" + tablePropertyListBodyButtonIndex);
         tableCell.appendChild(tableButtonAddToShortList);
+        tablePropertyListBodyButtonIndex++;                 // yes I know it's a global variable but this is a sprint!
+        // pass unique button id to click function
+        tableButtonAddToShortList.addEventListener('click', (e)=>{
+
+            btnLocationClick(e, e.target.id);
+        });
     }
     else {
         tableCell = document.createElement("td");
@@ -72,6 +84,8 @@ function renderPropertyListTable() {
     addColumnToTableHead(tableRow, "Price Details");
     addColumnToTableHead(tableRow, "Real Estate Agent");
     addColumnToTableHead(tableRow, "Shortlist?");
+    addColumnToTableHead(tableRow, "Latitude");
+    addColumnToTableHead(tableRow, "Longitude");
 
     // append body to table
     tablePropertyListBody = document.createElement("tbody");
@@ -90,6 +104,8 @@ function renderPropertyListTableRow(data) {
     addColumnToTableRow(tableRow, !booleanCreateButton, data.priceDetails.displayPrice);
     addColumnToTableRow(tableRow, !booleanCreateButton, data.advertiser.name);
     addColumnToTableRow(tableRow, booleanCreateButton, data.headline);
+    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.latitude);
+    addColumnToTableRow(tableRow, !booleanCreateButton, data.propertyDetails.longitude);
 
     tablePropertyListBody.append(tableRow);
 };
@@ -127,7 +143,6 @@ function fetchResidentialProperties(suburbToFetch) {
 buttonFetchPropertyList.addEventListener("click", function (event) {
     event.preventDefault();
     event.stopPropagation();
-
     fetchResidentialProperties(locationName.value);
 });
 
@@ -143,3 +158,43 @@ locationName.addEventListener("keypress", function (event) {
         buttonFetchPropertyList.click();
     }
 });
+
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+        // window.addEventListener("click",function() {
+            // tableButtonAddToShortList.addEventListener("click",function() {
+            //     // btnLocationClick();
+            //     console.log(tableButtonAddToShortList.id);
+            // });
+
+
+// Execute shortlist button
+// function btnLocationClick (event) {
+function btnLocationClick (event, buttonId) {
+    event.preventDefault();
+    event.stopPropagation();
+    // console.log(event.id);
+    console.log(buttonId);
+
+
+    // var theLatitude = buttonId.parent()
+
+    // var btnClicked = $(event.target);
+	// console.log(btnClicked);
+	// console.log(btnClicked.textContent);
+
+
+	// event.target.preventDefault();
+	// event.target.stopPropagation();
+
+
+    
+    // var btnClickedId = document.getElementById("")
+
+	// var timeBLock = btnClicked.parent().prev().prev().text();
+	// //				<button 	<td	 	<td   
+	// var eventActivity = btnClicked.parent().prev().text();																
+	// console.log('data in= '+ timeBLock);	console.log('data in= '+ eventActivity);	
+	// saveSchedule(timeBLock, eventActivity);
+}
