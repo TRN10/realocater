@@ -1,5 +1,11 @@
 //  DOM
 var chosenShortList = document.getElementById ("shortList");
+var buttonClearShortlist = document.getElementById("button-clear-shortlist");
+
+function clearShortlist(){
+  localStorage.clear();
+  reload();
+};
 
 // store in local storage
 function storeShortlistProperty(property) {
@@ -52,3 +58,9 @@ function reload() {
 }; 
 
 window.addEventListener('load', reload);
+
+buttonClearShortlist.addEventListener("click", function (event) {
+  event.preventDefault();
+  event.stopPropagation();
+  clearShortlist();
+});
