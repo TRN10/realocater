@@ -11,7 +11,7 @@ var chosenShortList = document.getElementById ("shortList");
 
 
 // change table data to array
-//var tableContent = [tablePropertyListBody, ]
+//var shortlistProperties = [tablePropertyListBody, ]
 
 
 // stringify array
@@ -19,21 +19,29 @@ var chosenShortList = document.getElementById ("shortList");
 
 // store in local storage
 function test(property){
- //  var tableContent = document.getElementById('data-row' + rowNumber).textContent;
- //  var tableContent = document.getElementById('tbody');
- var tableContent = localStorage.getItem('tableContent');
- if(tableContent && tableContent != null){
-    var myArr = JSON.parse(tableContent);
+ //  var shortlistProperties = document.getElementById('data-row' + rowNumber).textContent;
+ //  var shortlistProperties = document.getElementById('tbody');
+ var shortlistProperties = localStorage.getItem('shortlistProperties');
+
+ console.log("before localstorage is accessed");
+
+ if(shortlistProperties && shortlistProperties != null){
+    var myArr = JSON.parse(shortlistProperties);
     // console.log(myArr);
     myArr.push(property);
-      localStorage.setItem('tableContent', myArr);
+      localStorage.setItem('shortlistProperties', myArr);
       console.log(property);
       
-    localStorage.setItem('tableContent', JSON.stringify(myArr));
+    localStorage.setItem('shortlistProperties', JSON.stringify(myArr));
+    console.log("local property stored");
   }
   else{
-   localStorage.setItem('tableContent', JSON.stringify([property]));
+    console.log("local storage was empty - this is the first item");
+   localStorage.setItem('shortlistProperties', JSON.stringify([property]));
  }
+
+ console.log("need to render new selection");
+ reload();
 };
 
 
@@ -41,23 +49,19 @@ function test(property){
 //retrieve from local storage
 
 function reload(){
-var tableContent = localStorage.getItem('tableContent');
-console.log(tableContent);
-if ( tableContent && tableContent != null) {
-const myArr = JSON.parse(tableContent);
+var shortlistProperties = localStorage.getItem('shortlistProperties');
+
+$("#shortList").html("");
+
+console.log(shortlistProperties);
+if ( shortlistProperties && shortlistProperties != null) {
+const myArr = JSON.parse(shortlistProperties);
 myArr.forEach(element => {
   var shortListItem;
 shortListItem = document.createElement("button");
 shortListItem.textContent = element.listing.propertyDetails.displayableAddress;
 chosenShortList.appendChild(shortListItem);
 });
-//document.getElementById('tableContent').innerHTML = tableContent;
-// console.log(myArr[0]);
-// var shortListItem;
-// shortListItem = document.createElement("button");
-// shortListItem.textContent = myArr.listing.propertyDetails.displayableAddress;
-// chosenShortList.appendChild(shortListItem);
-//chosenShortList.innerHTML = "<button>" + myArr[0].listing.propertyDetails.displayableAddress + "</button>";
 }
 }; 
 
