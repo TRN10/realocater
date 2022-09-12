@@ -54,13 +54,25 @@ function getCityCurrentWeatherApi(weatherLocation, weatherLocationState) {
 			document.querySelector("#humidity").innerHTML = data.main.humidity;	
 		});
 	});
-
 	}
 
-    buttonFetchPropertyList.addEventListener("click", function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    
-//SDW getCityCurrentWeatherApi(weatherLocation, 'NSW');
-        // fetchResidentialProperties(locationName.value);
-    });
+
+
+buttonFetchPropertyList.addEventListener("click", function (event) {
+	event.preventDefault();
+	event.stopPropagation();
+});
+
+function btnShortlistClick (event, buttonId) {
+	event.preventDefault();
+	event.stopPropagation();
+
+	// use the dynamic button number to target the row number in the properties array
+	// var rowNumber = buttonId.slice(-1);
+	// var chosenPropertyRowNumber = buttonId.match(/\d+/);
+	// console.log(properties[chosenPropertyRowNumber])
+	
+	// storeShortlistProperty(properties[chosenPropertyRowNumber])
+
+	alert('buton click');
+}

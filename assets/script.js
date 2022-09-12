@@ -4,6 +4,7 @@ var locationName = document.getElementById("location-name");
 var tableContainer = document.getElementById("table-container");
 var buttonFetchPropertyList = document.getElementById("button-fetch-property-list");
 var properties = [];
+
 // RENDERED DOM
 var tablePropertyList;
 var tablePropertyListHead;
@@ -48,11 +49,11 @@ function addColumnToTableRow(tableRow, booleanVisible, booleanCreateButton, text
         tableButtonAddToShortList.setAttribute("class", "Btn btn-location fa-solid fa-heart");
         tableButtonAddToShortList.setAttribute("id", "btn-location" + tablePropertyListBodyButtonIndex);
         tableCell.appendChild(tableButtonAddToShortList);
-        tablePropertyListBodyButtonIndex++;                 // yes I know it's a global variable but this is a sprint!
         // pass unique button id to click function
         tableButtonAddToShortList.addEventListener("click", (e)=>{
             btnLocationClick(e, e.target.id);
         });
+        tablePropertyListBodyButtonIndex++;                 // yes I know it's a global variable but this is a sprint!
     }
     else {
         tableCell.textContent = textContent;
@@ -125,6 +126,8 @@ function renderPropertyListTableRow(data) {
 
 function fetchResidentialProperties(suburbToFetch) {
 
+    $('body').css('cursor','wait');
+
     renderPropertyListTable();
 
     fetch("https://api.domain.com.au/v1/listings/residential/_search?api_key=key_daead3aa93fcc658fb277dc12fbdb47e", {
@@ -140,24 +143,25 @@ function fetchResidentialProperties(suburbToFetch) {
             "locations": [{ "state": "", "region": "", "area": "", "suburb": suburbToFetch, "postCode": "", "includeSurroundingSuburbs": false }]
             })
         })
-        .then(function (response) {
-           
+        .then(function (response) {        
             return response.json()
         })
         .then(function (data) {
-         //   console.log(data);
-            properties = (data);
-            console.log(properties);
-            data.forEach(function (result) {
-                // console.log(result.listing);
-                renderPropertyListTableRow(result.listing);
-            });
-            // .catch???
-            // console.log(data);
+            if (data.length === 0) {
+                console.log('domain API returned zero rows');
+            }
+            else {
+                properties = (data);
+                // console.log(properties);
+                data.forEach(function (result) {
+                    renderPropertyListTableRow(result.listing);
+                });
+            }
         })
         .catch((error) => {
             console.log(error)
         })
+        $('body').css('cursor','default');
 };
 
 buttonFetchPropertyList.addEventListener("click", function (event) {
@@ -168,10 +172,9 @@ buttonFetchPropertyList.addEventListener("click", function (event) {
 
 // Execute a function when the user presses a key on the keyboard
 locationName.addEventListener("keypress", function (event) {
-
     // If the user presses the “Enter” key on the keyboard
     if (event.key === "Enter") {
-        console.log("Keypress")
+        // console.log("Keypress")
         // Cancel the default action, if needed
         event.preventDefault();
         // Trigger the button element with a click
@@ -179,30 +182,17 @@ locationName.addEventListener("keypress", function (event) {
     }
 });
 
-// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-
-        // window.addEventListener("click",function() {
-            // tableButtonAddToShortList.addEventListener("click",function() {
-            //     // btnLocationClick();
-            //     console.log(tableButtonAddToShortList.id);
-            // });
-
-//function test() {
-//    console.log('nicholas test');
-//}
-
 // Execute shortlist button
-// function btnLocationClick (event) {
 function btnLocationClick (event, buttonId) {
     event.preventDefault();
     event.stopPropagation();
-    // console.log(event.id);
-    console.log(buttonId.slice(-1));
-var rowNumber = buttonId.slice(-1);
 
-console.log(properties[rowNumber])
-    test(properties[rowNumber]);
+    // use the dynamic button number to target the row number in the properties array
+    // var rowNumber = buttonId.slice(-1);
+    var chosenPropertyRowNumber = buttonId.match(/\d+/);
+    // console.log(properties[chosenPropertyRowNumber])
+    
+    storeShortlistProperty(properties[chosenPropertyRowNumber]);
     
     // var theLatitude = buttonId.parent()
 
