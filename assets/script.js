@@ -24,7 +24,7 @@ var booleanVisible = true;
 function addColumnToTableHead(tableRow, booleanVisible, textContent) {
     tableCell = document.createElement("th");
     tableCell.setAttribute("scope", "col");
-    if  (!booleanVisible) {
+    if (!booleanVisible) {
         tableCell.setAttribute("class", "hide");        // materializecss.com
     }
     tableCell.textContent = textContent;
@@ -32,12 +32,12 @@ function addColumnToTableHead(tableRow, booleanVisible, textContent) {
 };
 
 function addColumnToTableRow(tableRow, booleanVisible, booleanCreateButton, textContent) {
-    if  (!booleanVisible && booleanCreateButton) {
+    if (!booleanVisible && booleanCreateButton) {
         console.log("You are creating an invisible button! This seems inappropriate.")
     };
     tableCell = document.createElement("td");
     tableCell.setAttribute("scope", "col");
-    if  (!booleanVisible) {
+    if (!booleanVisible) {
         tableCell.setAttribute("class", "hide");        // materializecss.com
     };
     if (booleanCreateButton) {
@@ -50,7 +50,7 @@ function addColumnToTableRow(tableRow, booleanVisible, booleanCreateButton, text
         tableButtonAddToShortList.setAttribute("id", "btn-location" + tablePropertyListBodyButtonIndex);
         tableCell.appendChild(tableButtonAddToShortList);
         // pass unique button id to click function
-        tableButtonAddToShortList.addEventListener("click", (e)=>{
+        tableButtonAddToShortList.addEventListener("click", (e) => {
             btnLocationClick(e, e.target.id);
         });
         tablePropertyListBodyButtonIndex++;                 // yes I know it's a global variable but this is a sprint!
@@ -85,13 +85,13 @@ function renderPropertyListTable() {
     tableRow.setAttribute("scope", "row");
     tablePropertyListHead.appendChild(tableRow);
 
-    addColumnToTableHead(tableRow, !booleanVisible, "Latitude");
-    addColumnToTableHead(tableRow, !booleanVisible, "Longitude");
-    addColumnToTableHead(tableRow,  booleanVisible, "Address");
-    addColumnToTableHead(tableRow,  booleanVisible, "Property Type");
-    addColumnToTableHead(tableRow,  booleanVisible, "Price Details");
-    addColumnToTableHead(tableRow,  booleanVisible, "Real Estate Agent");
-    addColumnToTableHead(tableRow,  booleanVisible, "Shortlist?");
+    // addColumnToTableHead(tableRow, !booleanVisible, "Latitude");
+    // addColumnToTableHead(tableRow, !booleanVisible, "Longitude");
+    addColumnToTableHead(tableRow, booleanVisible, "Address");
+    addColumnToTableHead(tableRow, booleanVisible, "Property Type");
+    addColumnToTableHead(tableRow, booleanVisible, "Price Details");
+    addColumnToTableHead(tableRow, booleanVisible, "Real Estate Agent");
+    addColumnToTableHead(tableRow, booleanVisible, "Shortlist?");
 
     // append body to table
     tablePropertyListBody = document.createElement("tbody");
@@ -111,14 +111,14 @@ function renderPropertyListTableRow(data) {
     tableRow.setAttribute("id", "data-row" + tableDataRowIndex);
     tablePropertyListBody.appendChild(tableRow);
 
-    addColumnToTableRow(tableRow, !booleanVisible, !booleanCreateButton, data.propertyDetails.latitude);
-    addColumnToTableRow(tableRow, !booleanVisible, !booleanCreateButton, data.propertyDetails.longitude);
+    // addColumnToTableRow(tableRow, !booleanVisible, !booleanCreateButton, data.propertyDetails.latitude);
+    // addColumnToTableRow(tableRow, !booleanVisible, !booleanCreateButton, data.propertyDetails.longitude);
     // addColumnToTableRow(tableRow,  booleanVisible, !booleanCreateButton, "test");
-    addColumnToTableRow(tableRow,  booleanVisible, !booleanCreateButton, data.propertyDetails.displayableAddress);
-    addColumnToTableRow(tableRow,  booleanVisible, !booleanCreateButton, data.propertyDetails.propertyType);
-    addColumnToTableRow(tableRow,  booleanVisible, !booleanCreateButton, data.priceDetails.displayPrice);
-    addColumnToTableRow(tableRow,  booleanVisible, !booleanCreateButton, data.advertiser.name);
-    addColumnToTableRow(tableRow,  booleanVisible, booleanCreateButton, data.headline);
+    addColumnToTableRow(tableRow, booleanVisible, !booleanCreateButton, data.propertyDetails.displayableAddress);
+    addColumnToTableRow(tableRow, booleanVisible, !booleanCreateButton, data.propertyDetails.propertyType);
+    addColumnToTableRow(tableRow, booleanVisible, !booleanCreateButton, data.priceDetails.displayPrice);
+    addColumnToTableRow(tableRow, booleanVisible, !booleanCreateButton, data.advertiser.name);
+    addColumnToTableRow(tableRow, booleanVisible, booleanCreateButton, data.headline);
 
     tablePropertyListBody.append(tableRow);
     tableDataRowIndex++;
@@ -126,7 +126,7 @@ function renderPropertyListTableRow(data) {
 
 function fetchResidentialProperties(suburbToFetch) {
 
-    $('body').css('cursor','wait');
+    $('body').css('cursor', 'wait');
 
     renderPropertyListTable();
 
@@ -141,9 +141,9 @@ function fetchResidentialProperties(suburbToFetch) {
             "minBathrooms": 1,
             "minCarspaces": 0,
             "locations": [{ "state": "", "region": "", "area": "", "suburb": suburbToFetch, "postCode": "", "includeSurroundingSuburbs": false }]
-            })
         })
-        .then(function (response) {        
+    })
+        .then(function (response) {
             return response.json()
         })
         .then(function (data) {
@@ -161,7 +161,7 @@ function fetchResidentialProperties(suburbToFetch) {
         .catch((error) => {
             console.log(error)
         })
-        $('body').css('cursor','default');
+    $('body').css('cursor', 'default');
 };
 
 buttonFetchPropertyList.addEventListener("click", function (event) {
@@ -183,7 +183,7 @@ locationName.addEventListener("keypress", function (event) {
 });
 
 // Execute shortlist button
-function btnLocationClick (event, buttonId) {
+function btnLocationClick(event, buttonId) {
     event.preventDefault();
     event.stopPropagation();
 
@@ -191,26 +191,26 @@ function btnLocationClick (event, buttonId) {
     // var rowNumber = buttonId.slice(-1);
     var chosenPropertyRowNumber = buttonId.match(/\d+/);
     // console.log(properties[chosenPropertyRowNumber])
-    
+
     storeShortlistProperty(properties[chosenPropertyRowNumber]);
-    
+
     // var theLatitude = buttonId.parent()
 
     // var btnClicked = $(event.target);
-	// console.log(btnClicked);
-	// console.log(btnClicked.textContent);
+    // console.log(btnClicked);
+    // console.log(btnClicked.textContent);
 
 
-	// event.target.preventDefault();
-	// event.target.stopPropagation();
+    // event.target.preventDefault();
+    // event.target.stopPropagation();
 
 
-    
+
     // var btnClickedId = document.getElementById("")
 
-	// var timeBLock = btnClicked.parent().prev().prev().text();
-	// //				<button 	<td	 	<td   
-	// var eventActivity = btnClicked.parent().prev().text();																
-	// console.log('data in= '+ timeBLock);	console.log('data in= '+ eventActivity);	
-	// saveSchedule(timeBLock, eventActivity);
+    // var timeBLock = btnClicked.parent().prev().prev().text();
+    // //				<button 	<td	 	<td   
+    // var eventActivity = btnClicked.parent().prev().text();																
+    // console.log('data in= '+ timeBLock);	console.log('data in= '+ eventActivity);	
+    // saveSchedule(timeBLock, eventActivity);
 }
