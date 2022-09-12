@@ -17,12 +17,12 @@ h2 {
     font-kerning: normal;
 }
 
-#location-name,
-#weather-location-name {
+#location-name {
     background-color: white;
     text-indent: 10px;
-    font-family: font-family: prompt, Arial, Helvetica, sans-serif;
-    ;
+    font-family: prompt, Arial, Helvetica, sans-serif;
+    border: none;
+    border-radius: 3px;
 }
 
 
@@ -60,6 +60,7 @@ button {
 #shortList {
     background-color: #26a69a;
 
+
 }
 
 .containerMain {
@@ -70,7 +71,7 @@ button {
 
 #weatherTable {
     background-color: #b2dfdb;
-    color: #004d40;
+    color: #009688;
 }
 
 
@@ -84,5 +85,7 @@ button {
     font-size: large;
     color: #004d40;
     background-color: white;
-
+    border: none;
+    cursor: pointer;
+    border-radius: ;
 }
