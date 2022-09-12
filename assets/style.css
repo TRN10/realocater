@@ -21,6 +21,8 @@ h2 {
 #weather-location-name {
     background-color: white;
     text-indent: 10px;
+    font-family: font-family: prompt, Arial, Helvetica, sans-serif;
+    ;
 }
 
 
@@ -68,10 +70,19 @@ button {
 
 #weatherTable {
     background-color: #b2dfdb;
+    color: #004d40;
 }
 
 
 #table-property-list td:first-child,
 #table-property-list th:first-child {
     padding-left: 32px;
+}
+
+.browser-default {
+    font-family: prompt, Arial, Helvetica, sans-serif;
+    font-size: large;
+    color: #004d40;
+    background-color: white;
+
 }
