@@ -57,4 +57,21 @@ button {
 
 #shortList {
     background-color: #26a69a;
+
+}
+
+.containerMain {
+    background-image: url("../assets/hero.png");
+
+
+}
+
+#weatherTable {
+    background-color: #b2dfdb;
+}
+
+
+#table-property-list td:first-child,
+#table-property-list th:first-child {
+    padding-left: 32px;
 }
