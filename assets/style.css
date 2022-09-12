@@ -11,7 +11,7 @@
 
 h2 {
     font-family: prompt, helvetica, sans-serif;
-    font-size: smaller;
+    font-size: larger;
     font-weight: 500;
     color: white;
     font-kerning: normal;
@@ -23,10 +23,6 @@ h2 {
     text-indent: 10px;
 }
 
-ol {
-    font-size: larger;
-    color: grey;
-}
 
 p {
     font-family: prompt, Arial, Helvetica, sans-serif;
@@ -53,13 +49,12 @@ button {
     background-color: white;
 }
 
-/* .table-container {
-    height: 500px;
-    overflow: scroll;
-} */
-
 #table-property-list,
 #shortlist,
 #weatherTable {
     font-family: prompt, Arial, Helvetica, sans-serif;
+}
+
+#shortList {
+    background-color: #26a69a;
 }
