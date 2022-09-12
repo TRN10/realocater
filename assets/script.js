@@ -201,8 +201,8 @@ function btnLocationClick (event, buttonId) {
     console.log(buttonId.slice(-1));
 var rowNumber = buttonId.slice(-1);
 
-console.log(properties[rowNumber -1])
-    test(properties[rowNumber -1]);
+console.log(properties[rowNumber])
+    test(properties[rowNumber]);
     
     // var theLatitude = buttonId.parent()
 
