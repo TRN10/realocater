@@ -9,7 +9,6 @@
 }
 
 
-
 h2 {
     font-family: prompt, helvetica, sans-serif;
     font-size: smaller;
@@ -35,7 +34,18 @@ p {
     font-weight: 400;
 }
 
-
+button {
+    font-family: prompt, Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    color: white;
+    padding: 10px;
+    margin: 20px;
+    background-color: #00897B;
+    border-radius: 5px;
+    justify-content: left;
+    border: none;
+    cursor: pointer;
+}
 
 .footer {
     font-family: prompt;
