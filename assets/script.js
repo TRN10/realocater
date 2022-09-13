@@ -31,21 +31,21 @@ function addColumnToTableHead(tableRow, booleanVisible, textContent) {
     if (!booleanVisible) {
         tableCell.setAttribute("class", "hide");        // materializecss.com
     }
-    
+
     tableCell.textContent = textContent;
     tableRow.appendChild(tableCell);
 };
 
 function addColumnToTableRow(tableRow, booleanVisible, booleanCreateButton, textContent) {
-    
+
     if (!booleanVisible && booleanCreateButton) {
         console.log("You are creating an invisible button! This seems inappropriate.")
     };
-    
+
     // create a cell
     tableCell = document.createElement("td");
     tableCell.setAttribute("scope", "col");
-    
+
     if (!booleanVisible) {
         tableCell.setAttribute("class", "hide");        // materializecss.com
     };
@@ -165,6 +165,7 @@ function fetchResidentialProperties(stateToFetch, suburbToFetch) {
                 // console.log(properties);
                 data.forEach(function (result) {
                     renderPropertyListTableRow(result.listing);
+                    document.getElementById("table-container").scrollIntoView()
                 });
             }
         })
@@ -222,5 +223,5 @@ function showRealocatorModalDialog(dialogElementId) {
         btn.addEventListener("click", () => {
             modal.close();
         })
-    };   
+    };
 }
