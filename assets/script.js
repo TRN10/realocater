@@ -1,5 +1,6 @@
 // Sean Wallace September 2022
 // DOM
+var locationState = document.getElementById("location-state");
 var locationName = document.getElementById("location-name");
 var tableContainer = document.getElementById("table-container");
 var buttonFetchPropertyList = document.getElementById("button-fetch-property-list");
@@ -19,32 +20,41 @@ var tablePropertyListBodyButtonIndex = 0;
 // CONDITIONALS
 var booleanFirstFetch = true;
 var booleanCreateButton = true;
-var booleanVisible = true;
+var booleanVisible = true;                              // this flag may be used in the future; all dynamic columns are visible in this cut of code
 
+// 2 DYNAMIC COLUMNS FUNCTIONS
 function addColumnToTableHead(tableRow, booleanVisible, textContent) {
+    // create a cell
     tableCell = document.createElement("th");
     tableCell.setAttribute("scope", "col");
+
     if (!booleanVisible) {
         tableCell.setAttribute("class", "hide");        // materializecss.com
     }
+    
     tableCell.textContent = textContent;
     tableRow.appendChild(tableCell);
 };
 
 function addColumnToTableRow(tableRow, booleanVisible, booleanCreateButton, textContent) {
+    
     if (!booleanVisible && booleanCreateButton) {
         console.log("You are creating an invisible button! This seems inappropriate.")
     };
+    
+    // create a cell
     tableCell = document.createElement("td");
     tableCell.setAttribute("scope", "col");
+    
     if (!booleanVisible) {
         tableCell.setAttribute("class", "hide");        // materializecss.com
     };
+
     if (booleanCreateButton) {
-        // tableCell.textContent = textContent;
-        tableButtonAddToShortList = document.createElement('button');
+        // tableCell.textContent = textContent;         // assume buttons do not need text
+        tableButtonAddToShortList = document.createElement("button");
         tableButtonAddToShortList.setAttribute("type", "button");
-        tableButtonAddToShortList.setAttribute("title", textContent);       // review attribute name "title" later; this is a sprint!
+        tableButtonAddToShortList.setAttribute("title", textContent);       // to do: review attribute name "title" later; this is a sprint!
         // tableButtonAddToShortList.setAttribute("class", "Btn btn-primary far fa-save");
         tableButtonAddToShortList.setAttribute("class", "Btn btn-location fa-solid fa-heart");
         tableButtonAddToShortList.setAttribute("id", "btn-location" + tablePropertyListBodyButtonIndex);
@@ -61,6 +71,7 @@ function addColumnToTableRow(tableRow, booleanVisible, booleanCreateButton, text
     tableRow.appendChild(tableCell);
 };
 
+// 2 DYNAMIC TABLE FUNCTIONS AND 1 FETCH FUNCTION
 // create the table, add thead, add empty tbody
 function renderPropertyListTable() {
     if (booleanFirstFetch) {
@@ -85,9 +96,8 @@ function renderPropertyListTable() {
     tableRow.setAttribute("scope", "row");
     tablePropertyListHead.appendChild(tableRow);
 
-    // addColumnToTableHead(tableRow, !booleanVisible, "Latitude");
-    // addColumnToTableHead(tableRow, !booleanVisible, "Longitude");
     addColumnToTableHead(tableRow, booleanVisible, "Address");
+    addColumnToTableHead(tableRow, booleanVisible, "State");
     addColumnToTableHead(tableRow, booleanVisible, "Property Type");
     addColumnToTableHead(tableRow, booleanVisible, "Price Details");
     addColumnToTableHead(tableRow, booleanVisible, "Real Estate Agent");
@@ -98,7 +108,7 @@ function renderPropertyListTable() {
     tablePropertyListBody.setAttribute("id", "tbody");
     tablePropertyList.appendChild(tablePropertyListBody);
 
-    // at the start of building the table make sure the index pointers are flushed
+    // flush the index pointers for the data section of the table before it gets generated 
     tableDataRowIndex = 0;
     tablePropertyListBodyButtonIndex = 0;                 // yes I know it's a global variable but this is a sprint!
 };
@@ -111,10 +121,8 @@ function renderPropertyListTableRow(data) {
     tableRow.setAttribute("id", "data-row" + tableDataRowIndex);
     tablePropertyListBody.appendChild(tableRow);
 
-    // addColumnToTableRow(tableRow, !booleanVisible, !booleanCreateButton, data.propertyDetails.latitude);
-    // addColumnToTableRow(tableRow, !booleanVisible, !booleanCreateButton, data.propertyDetails.longitude);
-    // addColumnToTableRow(tableRow,  booleanVisible, !booleanCreateButton, "test");
     addColumnToTableRow(tableRow, booleanVisible, !booleanCreateButton, data.propertyDetails.displayableAddress);
+    addColumnToTableRow(tableRow, booleanVisible, !booleanCreateButton, data.propertyDetails.state);
     addColumnToTableRow(tableRow, booleanVisible, !booleanCreateButton, data.propertyDetails.propertyType);
     addColumnToTableRow(tableRow, booleanVisible, !booleanCreateButton, data.priceDetails.displayPrice);
     addColumnToTableRow(tableRow, booleanVisible, !booleanCreateButton, data.advertiser.name);
@@ -124,9 +132,10 @@ function renderPropertyListTableRow(data) {
     tableDataRowIndex++;
 };
 
-function fetchResidentialProperties(suburbToFetch) {
+// FETCH TO POPULATE TABLE
+function fetchResidentialProperties(stateToFetch, suburbToFetch) {
 
-    $('body').css('cursor', 'wait');
+    $("body").css("cursor", "wait");
 
     renderPropertyListTable();
 
@@ -140,7 +149,7 @@ function fetchResidentialProperties(suburbToFetch) {
             "minBedrooms": 1,
             "minBathrooms": 1,
             "minCarspaces": 0,
-            "locations": [{ "state": "", "region": "", "area": "", "suburb": suburbToFetch, "postCode": "", "includeSurroundingSuburbs": false }]
+            "locations": [{ "state": stateToFetch, "region": "", "area": "", "suburb": suburbToFetch, "postCode": "", "includeSurroundingSuburbs": false }]
         })
     })
         .then(function (response) {
@@ -148,7 +157,8 @@ function fetchResidentialProperties(suburbToFetch) {
         })
         .then(function (data) {
             if (data.length === 0) {
-                console.log('domain API returned zero rows');
+                console.log("domain API returned zero rows");
+                showRealocatorModalDialog("#dialog-fetch-empty");
             }
             else {
                 properties = (data);
@@ -161,16 +171,23 @@ function fetchResidentialProperties(suburbToFetch) {
         .catch((error) => {
             console.log(error)
         })
-    $('body').css('cursor', 'default');
+    $("body").css("cursor", "default");
 };
 
+
+// Excute the fetch (shown as "search") button 
 buttonFetchPropertyList.addEventListener("click", function (event) {
     event.preventDefault();
     event.stopPropagation();
-    fetchResidentialProperties(locationName.value);
+
+    if (locationState.value == "placeholder" || locationName.value == "") {
+        showRealocatorModalDialog("#dialog-state-and-name");
+    } else {
+        fetchResidentialProperties(locationState.value, locationName.value);
+    }
 });
 
-// Execute a function when the user presses a key on the keyboard
+// Execute press of Enter key only
 locationName.addEventListener("keypress", function (event) {
     // If the user presses the “Enter” key on the keyboard
     if (event.key === "Enter") {
@@ -190,27 +207,20 @@ function btnLocationClick(event, buttonId) {
     // use the dynamic button number to target the row number in the properties array
     // var rowNumber = buttonId.slice(-1);
     var chosenPropertyRowNumber = buttonId.match(/\d+/);
-    // console.log(properties[chosenPropertyRowNumber])
-
     storeShortlistProperty(properties[chosenPropertyRowNumber]);
+}
 
-    // var theLatitude = buttonId.parent()
-
-    // var btnClicked = $(event.target);
-    // console.log(btnClicked);
-    // console.log(btnClicked.textContent);
-
-
-    // event.target.preventDefault();
-    // event.target.stopPropagation();
-
-
-
-    // var btnClickedId = document.getElementById("")
-
-    // var timeBLock = btnClicked.parent().prev().prev().text();
-    // //				<button 	<td	 	<td   
-    // var eventActivity = btnClicked.parent().prev().text();																
-    // console.log('data in= '+ timeBLock);	console.log('data in= '+ eventActivity);	
-    // saveSchedule(timeBLock, eventActivity);
+// Dialog render function
+function showRealocatorModalDialog(dialogElementId) {
+    // dialogElementId = "#dialog-state-and-name" or "#dialog-fetch-empty"
+    // the text and buttons are defined in the HTML
+    // the button must be class="close", it's a sprint!
+    var modal = document.querySelector(dialogElementId);
+    modal.showModal();
+    var closeBtns = document.getElementsByClassName("close");
+    for (btn of closeBtns) {
+        btn.addEventListener("click", () => {
+            modal.close();
+        })
+    };   
 }
