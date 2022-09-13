@@ -18,7 +18,6 @@ var tableButtonAddToShortList;
 var tablePropertyListBodyButtonIndex = 0;
 
 // CONDITIONALS
-var booleanFirstFetch = true;
 var booleanCreateButton = true;
 var booleanVisible = true;                              // this flag may be used in the future; all dynamic columns are visible in this cut of code
 
@@ -74,12 +73,6 @@ function addColumnToTableRow(tableRow, booleanVisible, booleanCreateButton, text
 // 2 DYNAMIC TABLE FUNCTIONS AND 1 FETCH FUNCTION
 // create the table, add thead, add empty tbody
 function renderPropertyListTable() {
-
-    // if (booleanFirstFetch) {
-    //     booleanFirstFetch = false;
-    // } else {
-    //     tablePropertyList.remove();
-    // }
 
     // append table to its container
     tablePropertyList = document.createElement("table");
@@ -162,16 +155,11 @@ function fetchResidentialProperties(stateToFetch, suburbToFetch) {
             if (propertiesFetched.length === 0) {
                 console.log("domain API returned no properties rows");
                 showRealocatorModalDialog("#dialog-fetch-empty");
-
-                // var tableToRemove = document.getElementById("table-property-list");
-                // if (tableToRemove) {
-                //     tableToRemove.remove();
-                // }
-                // tablePropertyList.remove();
             }
             else {
 
                 renderPropertyListTable();
+                properties = propertiesFetched; // global variable set to parse into storage, after MVP this should be a parameter
 
                 propertiesFetched.forEach(function (result) {
                     // for the MVP we are only processing result.type === "PropertyListing"
@@ -193,7 +181,6 @@ function fetchResidentialProperties(stateToFetch, suburbToFetch) {
     $("body").css("cursor", "default");
 };
 
-
 // Excute the fetch (shown as "search") button 
 buttonFetchPropertyList.addEventListener("click", function (event) {
     event.preventDefault();
@@ -210,7 +197,6 @@ buttonFetchPropertyList.addEventListener("click", function (event) {
 locationName.addEventListener("keypress", function (event) {
     // If the user presses the “Enter” key on the keyboard
     if (event.key === "Enter") {
-        // console.log("Keypress")
         // Cancel the default action, if needed
         event.preventDefault();
         // Trigger the button element with a click
@@ -222,10 +208,10 @@ locationName.addEventListener("keypress", function (event) {
 function btnLocationClick(event, buttonId) {
     event.preventDefault();
     event.stopPropagation();
-
-    // use the dynamic button number to target the row number in the properties array
-    // var rowNumber = buttonId.slice(-1);
     var chosenPropertyRowNumber = buttonId.match(/\d+/);
+    console.log(chosenPropertyRowNumber);
+
+    // global array set in fetchResidentialProperties; MVP!
     storeShortlistProperty(properties[chosenPropertyRowNumber]);
 }
 
