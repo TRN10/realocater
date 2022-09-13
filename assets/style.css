@@ -87,5 +87,8 @@ button {
     background-color: white;
     border: none;
     cursor: pointer;
-    border-radius: ;
+}
+
+dialog {
+    font-family: prompt, Arial, Helvetica, sans-serif;
 }

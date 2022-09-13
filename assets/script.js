@@ -74,11 +74,12 @@ function addColumnToTableRow(tableRow, booleanVisible, booleanCreateButton, text
 // 2 DYNAMIC TABLE FUNCTIONS AND 1 FETCH FUNCTION
 // create the table, add thead, add empty tbody
 function renderPropertyListTable() {
-    if (booleanFirstFetch) {
-        booleanFirstFetch = false;
-    } else {
-        tablePropertyList.remove();
-    }
+
+    // if (booleanFirstFetch) {
+    //     booleanFirstFetch = false;
+    // } else {
+    //     tablePropertyList.remove();
+    // }
 
     // append table to its container
     tablePropertyList = document.createElement("table");
@@ -137,7 +138,9 @@ function fetchResidentialProperties(stateToFetch, suburbToFetch) {
 
     $("body").css("cursor", "wait");
 
-    renderPropertyListTable();
+    if (tablePropertyList) {
+        tablePropertyList.remove();
+    }
 
     fetch("https://api.domain.com.au/v1/listings/residential/_search?api_key=key_daead3aa93fcc658fb277dc12fbdb47e", {
         method: "POST",
@@ -155,17 +158,32 @@ function fetchResidentialProperties(stateToFetch, suburbToFetch) {
         .then(function (response) {
             return response.json()
         })
-        .then(function (data) {
-            if (data.length === 0) {
-                console.log("domain API returned zero rows");
+        .then(function (propertiesFetched) {
+            if (propertiesFetched.length === 0) {
+                console.log("domain API returned no properties rows");
                 showRealocatorModalDialog("#dialog-fetch-empty");
+
+                // var tableToRemove = document.getElementById("table-property-list");
+                // if (tableToRemove) {
+                //     tableToRemove.remove();
+                // }
+                // tablePropertyList.remove();
             }
             else {
-                properties = (data);
-                // console.log(properties);
-                data.forEach(function (result) {
-                    renderPropertyListTableRow(result.listing);
-                    document.getElementById("table-container").scrollIntoView()
+
+                renderPropertyListTable();
+
+                propertiesFetched.forEach(function (result) {
+                    // for the MVP we are only processing result.type === "PropertyListing"
+                    if (result.type === "Project") {
+                        console.log("result.type Project to be done another time. This logic still meets MVP.");
+                    } else if (result.type === "PropertyListing") {
+                        renderPropertyListTableRow(result.listing);
+                        document.getElementById("table-container").scrollIntoView();
+                    } else {
+                        console.log("the API has an unexpected result.type");
+                    };
+
                 });
             }
         })
