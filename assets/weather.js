@@ -32,6 +32,7 @@ function getCityCurrentWeatherApi(btnShortlistClicked) {
 				document.querySelector("#wind").innerHTML = data.wind.speed;
 				document.querySelector("#humidity").innerHTML = data.main.humidity;
 				weatherCardEl.classList.remove('hide');
+				document.getElementById("weatherInfoCard").scrollIntoView();
 			});
 
 	};
