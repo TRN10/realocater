@@ -1,10 +1,11 @@
 //  DOM
-var chosenShortList = document.getElementById ("shortList");
+var chosenShortList = document.getElementById("shortList");
 var buttonClearShortlist = document.getElementById("button-clear-shortlist");
 
-function clearShortlist(){
+function clearShortlist() {
   localStorage.clear();
   reload();
+  weatherCardEl.classList.add('hide');
 };
 
 // store in local storage
@@ -49,13 +50,13 @@ function reload() {
       shortListItem.textContent = element.listing.propertyDetails.displayableAddress;
       shortListItem.setAttribute("id", "btn-shortlist" + shortlistButtonId);
       chosenShortList.appendChild(shortListItem);
-      shortListItem.addEventListener("click", (e)=>{
+      shortListItem.addEventListener("click", (e) => {
         btnShortlistClick(e, e.target.id);
       });
       shortlistButtonId++;
     });
   }
-}; 
+};
 
 window.addEventListener('load', reload);
 

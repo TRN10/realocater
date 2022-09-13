@@ -72,7 +72,7 @@ function renderPropertyListTable() {
     // append table to its container
     tablePropertyList = document.createElement("table");
     tablePropertyList.setAttribute("id", "table-property-list");
-    tablePropertyList.setAttribute("class", "striped");
+    tablePropertyList.setAttribute("class", "striped, responsive-table");
     tableContainer.appendChild(tablePropertyList);
 
     // append head to table
