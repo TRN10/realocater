@@ -1,109 +1,61 @@
-# Realocater
-Find short term accomodation (or the weather) near where you want to buy property.
+# Realocator
+Realocator will be a simple web app that allows people to:
 
-This real-world front-end application showcases the benefits for someone looking to buy a property (usually as an investment).  Realocater makes planning the visit to the community of the property easier (buy telling you the weather or nearby short term accomodation).
+•			Search for properties for sale in a specified location 
 
-## Project Requirements
+•            Make a shortlist of those preferred properties
 
-The technical requirements are:
+•            Check the weather for those shortlisted properties
 
-* CSS framework other than Bootstrap: [Tailwind](https://tailwindcss.com/).
+•            Have links to relevant sites such as www.domain.com.au and www.airbnb.com.au 
 
-* Be deployed to GitHub Pages.
 
-* Be interactive (i.e., accept and respond to user input).
-
-* Use at least two [server-side APIs](https://coding-boot-camp.github.io/full-stack/apis/api-resources).
-	* domain.com.au API
-	* airbnb.com.au or bookings.com API or weather API
-
-* Does not use alerts, confirms, or prompts (use modals).
-
-* Use client-side storage to store persistent data.
-
-* Responsive.
-
-* Polished UI.
-
-* Has a clean repository that meets quality coding standards (file structure, naming conventions, follows best practices for class/id naming conventions, indentation, quality comments, etc.).
-
-* Has a quality README (with unique name, description, technologies used, screenshot, and link to deployed application).
-
-## Presentation Requirements
-
-Use this [project presentation template](https://docs.google.com/presentation/d/10QaO9KH8HtUXj__81ve0SZcpO5DbMbqqQr4iPpbwKks/edit?usp=sharing) to address the following: 
-
-* Elevator pitch: one minute.
-
-* Demo
-
-* Concept: User story and motivation
-
-* Technologies used. Roles: PM, Design, API, storage, CSS Framework. Challenges and the successes.
-
-* Directions for Future Development
-
-* Links to the deployed application and the GitHub repository
-
-## Note
-Project One: Rodney Nicholas Trentan Sean 
+## Collaborators
+Project One: Rodney Parker-Yules, Nicholas Strong, Trentan Jurkans and Sean Wallace. 
 
 ## User Story
 
 ```
-AS a property buyer I want to find some short term accomodation
-near the property I might buy so that I can stay in the community
-or check the weather before I make my final decison.
-```
+As a property buyer, I want to view properties for sale in a specified location. I want to save properties of interest into a shortlist and I want to view the weather for those locations.
 
-## Acceptance Criteria (short term accomodation)
+```
+## Acceptance Criteria
 
 ```
 GIVEN I am looking to buy property
-WHEN I choose a city/suburb
-THEN I am given a list of properties to investigate futher into
-WHEN I select a property
-THEN I am presented with a list of nearby short term accomodation that I could stay at
-WHEN I select short term accomodation
-THEN it gets associated with the property I selected
-WHEN I delete an accomodation selection
-THEN the accomodation item gets disconnectd from the property selected
-WHEN I delete a property
-THEN the property and related accomodation gets removed from the list
-WHEN I have finished choosing properties and related accomodation
-THEN the ones I have chosen get stored
-WHEN I visit the page next time
-THEN I see the properties and related accomodation I saved
-```
 
-## Acceptance Criteria (weather)
+WHEN I enter a state and city or suburb
+THEN I am given a list of properties for sale in that location
 
-```
-GIVEN I am looking to buy property
-WHEN I choose a city/suburb
-THEN I am given the weather outlook for the next few days
-WHEN I select a property
-THEN it gets stored locally
-WHEN I delete a property
-THEN the property gets removed from the list
-WHEN I visit the page next time
-THEN I see the properties 
+WHEN I click on the “shortlist” button in list of properties for sale 
+THEN a button is created in the shortlist section displaying the address of the chosen property
+
+WHEN I click on a property in the shortlist
+THEN I am given the weather details for the location of that property
+
+WHEN I reload the page 
+THEN my previous shortlist selections are displayed
+
+WHEN I click the Clear Shortlist button 
+THEN the shortlist of properties and weather is cleared
+
+WHEN I view the page on a mobile device
+THEN the page responds and automatically scrolls to the relevant part of the page
+
 ```
 
 ## Mock-Up
 
-The following image shows the application functionality:
+The following image shows the applications logic flow:
+![A screenshot of the realocator application.](./assets/RealocatorFlowChart%20V3.0.jpg)
 
-![A user clicks through an interactive coding quiz, then enters initials to save the high score before resetting and starting over.](./assets/______.png)
+The following image shows the applications user inferface:
+![A screenshot of the realocator application.](./assets/realocator-screenshot-1.png)
 
 ## Deployed Application
-Realocator is here:
+Realocator is here: https://seanu2022.github.io/realocater/ 
 
+Realocator repository is here: https://github.com/SeanU2022/realocater
 
-## How to Submit Your Interactive Front-End Project
-
-**Each member of the group** has submitted the following for review:
-
-* The URL of the deployed application.
-
-* The URL of the GitHub repository, with a unique name and a README describing the project.
+## Future Design Documentation
+Refer to RealocatorDesignDocumentV3.0.pdf in the assets sub folder.
