@@ -28,7 +28,7 @@ function getCityCurrentWeatherApi(btnShortlistClicked) {
 			})
 			.then(function (data) {
 				document.querySelector("#temp").innerHTML = data.main.temp;
-				document.querySelector("#feels").innerHTML = data.main.feels_like;
+				document.querySelector("#feels-like").innerHTML = data.main.feels_like;
 				document.querySelector("#wind").innerHTML = data.wind.speed;
 				document.querySelector("#humidity").innerHTML = data.main.humidity;
 				weatherCardEl.classList.remove('hide');
